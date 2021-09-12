@@ -3,7 +3,8 @@ import './App.css';
 import Footer from "./components/Footer";
 import Layout from "./components/Layout";
 import Header from "./components/Header";
-import urlBg from "./assets/bg1.jpg";
+import bg1 from "./assets/bg1.jpg";
+import bg2 from "./assets/bg2.jpg";
 
 const App = () => {
     return (
@@ -15,12 +16,17 @@ const App = () => {
             <Layout
                 title = "This is new Title"
                 descr= "This is new description!"
-                urlBg ={urlBg}
+                urlBg ={bg1}
             />
             <Layout
                 title = "This is new Title"
                 descr= "This is new description!"
                 colorBg = 'red'
+            />
+            <Layout
+                title = "This is new Title"
+                descr= "This is new description!"
+                urlBg ={bg2}
             />
             <Footer/>
         </>
