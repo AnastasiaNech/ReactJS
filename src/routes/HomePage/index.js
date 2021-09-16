@@ -7,19 +7,14 @@ import PokemonCard from "../../components/PokemonCard";
 import MenuHeader from "../../components/MenuHeader"
 import bg1 from "../../assets/bg1.jpg";
 import bg2 from "../../assets/bg2.jpg";
-import pokemons from "../../pokemons.json";
 
-
-const POKEMONS = pokemons;
 
 const HomePage = ({onChangePage}) => {
     const handleClickButton = (page) => {
-
         onChangePage && onChangePage(page);
     }
     return (
         <>
-            <MenuHeader/>
             <Header
                 title="This is new Title"
                 onClickButton={handleClickButton}
@@ -42,23 +37,6 @@ const HomePage = ({onChangePage}) => {
                     If the player's rank is higher, the opponent's card will be captured and changed into the player's
                     color instead.
                 </p>
-            </Layout>
-            <Layout
-                title="Cards"
-                colorBg='red'
-            >
-                <div className={s.flex}>
-                    {
-                        POKEMONS.map((item) => <PokemonCard
-                            key={item.id}
-                            name={item.name}
-                            img={item.img}
-                            id={item.id}
-                            type={item.type}
-                            values={item.values}
-                        />)
-                    }
-                </div>
             </Layout>
             <Layout
                 urlBg={bg2}
