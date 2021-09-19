@@ -3,7 +3,6 @@ import {useHistory} from "react-router-dom";
 
 const Header = ({title}) => {
     const history = useHistory();
-
     const handleClick = () => {
         history.push('/game');
     }
