@@ -33,8 +33,9 @@ const GamePage = () => {
 
     };
     const addPokemons = () => {
-        const arr = Object.entries(pokemons);
-        const length = arr.length;
+        var pok = Object.entries((pokemons));
+        const newKey = database.ref().child('pokemons').push().key;
+        database.ref('pokemons/' + newKey).set(pok[1]);
     }
 
 
