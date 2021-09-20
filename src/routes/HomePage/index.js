@@ -1,23 +1,16 @@
 import React from "react";
 import s from './style.module.css';
-import Footer from "../../components/Footer";
 import Layout from "../../components/Layout";
 import Header from "../../components/Header";
-import PokemonCard from "../../components/PokemonCard";
-import MenuHeader from "../../components/MenuHeader"
 import bg1 from "../../assets/bg1.jpg";
 import bg2 from "../../assets/bg2.jpg";
 
 
-const HomePage = ({onChangePage}) => {
-    const handleClickButton = (page) => {
-        onChangePage && onChangePage(page);
-    }
+const HomePage = ({}) => {
     return (
         <>
             <Header
                 title="This is new Title"
-                onClickButton={handleClickButton}
             />
             <Layout
                 title="Game description"
@@ -41,7 +34,6 @@ const HomePage = ({onChangePage}) => {
             <Layout
                 urlBg={bg2}
             />
-            <Footer/>
         </>
     );
 }

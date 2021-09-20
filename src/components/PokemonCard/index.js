@@ -3,10 +3,12 @@ import s from './style.module.css';
 import card from '../../assets/card-back-side.jpg';
 import cn from 'classnames';
 
-const PokemonCard = ({name, img, id, type, values, onChangeIsActive,isActive}) => {
-
+const PokemonCard =
+    ({name, img, id, type, values, objID, onChangeIsActive}) => {
+    const [isActive, setActive] = useState(false);
     const handleClick = () => {
-        onChangeIsActive && onChangeIsActive(id);
+        setActive(true) || setActive (!isActive);
+        onChangeIsActive && onChangeIsActive(id, objID, isActive);
     }
     return (
         <div className={s.root}>
