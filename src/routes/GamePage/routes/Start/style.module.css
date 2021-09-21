@@ -334,9 +334,18 @@ button:active {
     transform: translate(-50%, 0);
     bottom: 0;
 }
+
+
 .flex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: 40px;
+}
+
+.card
+{
+    width: 250px;
+    height: 380px;
+    cursor:pointer;
+
 }
