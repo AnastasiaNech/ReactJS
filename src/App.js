@@ -1,4 +1,4 @@
-import {useLocation, Route, Switch, Redirect} from "react-router-dom"
+import {useLocation, Route, Switch, Redirect, useRouteMatch} from "react-router-dom"
 import s from './style.module.css';
 import cn from 'classnames';
 import HomePage from "./routes/HomePage";
@@ -9,13 +9,14 @@ import AboutPage from "./routes/AboutPage";
 import NotFound from "./routes/NotFound";
 import ContactPage from "./routes/ContactPage/";
 import Firebase from "./service/firebase"
-import {FirebaseContext} from "./context/firebaseContext";
+import {FireBaseContext} from "./context/firebaseContext";
 
 const App = () => {
     const location = useLocation();
     const isPadding = location.pathname === '/' || location.pathname === '/game/board';
+
     return (
-        <FirebaseContext.Provider value={new Firebase()}>
+        <FireBaseContext.Provider value={new Firebase()}>
             <Switch>
                 <Route path="/404" component={NotFound}/>
                 <Route>
@@ -38,7 +39,7 @@ const App = () => {
                     </>
                 </Route>
             </Switch>
-        </FirebaseContext.Provider>
+        </FireBaseContext.Provider>
     )
 };
 

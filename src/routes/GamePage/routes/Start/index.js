@@ -3,12 +3,12 @@ import {useState, useEffect, useContext} from "react";
 import {useHistory} from "react-router-dom";
 import PokemonCard from "../../../../components/PokemonCard";
 import s from "./style.module.css";
-import {FirebaseContext} from "../../../../context/firebaseContext";
+import {FireBaseContext} from "../../../../context/firebaseContext";
 import {PokemonContext} from "../../../../context/pokemonContext";
 
 
 const StartPage = () => {
-    const firebase = useContext(FirebaseContext);
+    const firebase = useContext(FireBaseContext);
     const pokemonContext = useContext(PokemonContext);
     const history = useHistory();
     const [pokemons, setPokemonCardState] = useState({});
@@ -22,7 +22,8 @@ const StartPage = () => {
 
     const handleChangeSelected = (key) => {
         const pokemon = {...pokemons[key]};
-        pokemonContext.onSelectedPokemons(key);
+        console.log('addPok');
+        pokemonContext.onSelectedPokemons(key, pokemon);
 
         setPokemonCardState(prevState => ({
             ...prevState,
@@ -33,7 +34,7 @@ const StartPage = () => {
         }))
     };
 
-    const handleStartGameClick = (key) => {
+    const handleStartGameClick = () => {
         history.push('/game/board');
     };
 
