@@ -78,6 +78,9 @@ button:visited {
     color: #fafafa;
     font-weight: bold;
     outline: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 button:active {
@@ -338,13 +341,16 @@ button:active {
 
 .flex {
     display: grid;
-    grid-template-columns: auto;
-    grid-gap: 40px;
+    grid-template-columns: repeat(5, 5fr);
+    grid-gap: 50px;
+    margin-top: 50px;
+    justify-items: center;
 }
 
 .card
 {
-    width: 250px;
+    display: block;
+    max-width: 250px;
     height: 380px;
     cursor:pointer;
 

@@ -1,5 +1,5 @@
 import s from './style.module.css';
-import {Link, useHistory} from "react-router-dom"
+import {Link} from "react-router-dom"
 import cn from 'classnames';
 
 
@@ -35,9 +35,9 @@ const Menu = ({isActive}) => {
                     {
                         MENU.map(({title, to, index}) => (
                             <li key={index}>
-                                <Link 
-                                    to={to}>
-                                    {title}
+                                <Link
+                                to={to}>
+                                {title}
                                 </Link>
                             </li>
                         ))
