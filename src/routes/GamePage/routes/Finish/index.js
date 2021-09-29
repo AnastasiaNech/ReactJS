@@ -4,16 +4,23 @@ import PokemonCard from "../../../../components/PokemonCard";
 import {PokemonContext} from "../../../../context/pokemonContext";
 import {useHistory} from "react-router-dom";
 import {FireBaseContext} from "../../../../context/firebaseContext";
-
-
+import {selectMyPokemonsData,isWinner} from "../../../../store/myBattlePokemon";
+import {
+    selectPlayerPokemons2Data, updatePlayer2Pokemons
+} from "../../../../store/playerPokemons2";
+import {useDispatch,useSelector} from "react-redux";
 
 
 const FinishPage = () => {
+    const playerPokemonsRedux = useSelector(selectMyPokemonsData);
+    const winner = useSelector(isWinner);
+    const playerPokemons2Redux = useSelector(selectPlayerPokemons2Data).data;
     const firebase = useContext(FireBaseContext);
-    const {pokemons, pokemons2, winner, clean, updPlayers2Pokemons} = useContext(PokemonContext);
+    const {clean} = useContext(PokemonContext);
     const [selectedPokemon, setSelectedPokemon] = useState({});
     const [selectedPokemon2, setSelectedPokemon2] = useState({});
     const history = useHistory();
+    const Dispatch = useDispatch();
 
     const handleFinishClick = () => {
         if (winner === 1 ) {
@@ -25,47 +32,42 @@ const FinishPage = () => {
     }
 
     const handleSelectedClick = (key,id) => {
-        setSelectedPokemon(pokemons2[key]);
-        console.log('addPok');
-       //      Object.entries(pokemons2).map(item=>({...item,selected:false}));
-       //  // updPlayers2Pokemons(pokemons2=>({
-       //  //         ...pokemons2,
-       //  //         ...pokemons2.selected=false}));
-       // // pokemons2.map((item) => item.selected = false);
-       //  updPlayers2Pokemons(pokemons2 => ({
-       //      ...pokemons2,
-       //      [key]: {
-       //           ...pokemons2[key],
-       //           selected: true,
-       //      }
-       //  }));
-        updPlayers2Pokemons( pokemons2 => {
-            return pokemons2.reduce((acc, item) =>{
-                item.isSelected = false;
-                if( item.id === id)
-                {
-                    item.isSelected = true;
+        const pokemonsList = playerPokemons2Redux;
+        setSelectedPokemon(pokemonsList[key]);
+        const newList = ()=> {
+            return pokemonsList.reduce((acc, item) => {
+                console.log("item", item)
+                item=
+                    {   ...item,
+                        isSelected : false
+                    };
+                if (item.id === id) {
+                    item=
+                        {   ...item,
+                            isSelected : true
+                        };
                 }
+                console.log("item", item)
                 acc.push(item);
                 return acc;
-            },[]);
-        })
-
-
+            }, []);
+        }
+        const result=newList();
+        console.log("playerPokemonsRedux",result)
+        Dispatch(updatePlayer2Pokemons(result));
     }
 
-    if(Object.keys(pokemons).length === 0)
+    if(Object.keys(playerPokemonsRedux).length === 0)
     {
          history.replace('/game');
     }
-    console.log('testOtherName',selectedPokemon);
-
-
+    console.log("playerPokemonsRedux",playerPokemonsRedux)
+    console.log("playerPokemons2Redux",playerPokemons2Redux)
     return (
         <>
             <div className={s.flexPlayer1}>
                 {
-                    Object.entries(pokemons).map(([key, {id, name, img, type, values, selected}]) =>
+                    Object.entries(playerPokemonsRedux).map(([key, {id, name, img, type, values, selected}]) =>
                         <PokemonCard
                             className={s.card}
                             key={key}
@@ -86,7 +88,7 @@ const FinishPage = () => {
             </button>
             <div className={s.flexPlayer2}>
                 {
-                    Object.entries(pokemons2).map(([key, {id, name, img, type, values, isSelected}]) =>
+                    Object.entries(playerPokemons2Redux).map(([key, {id, name, img, type, values, isSelected}]) =>
                         <PokemonCard
                             className={s.card}
                             key={key}

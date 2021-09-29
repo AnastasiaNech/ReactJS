@@ -4,44 +4,20 @@ import BoardPage from "./routes/Board";
 import FinishPage from "./routes/Finish";
 import {PokemonContext} from "../../context/pokemonContext";
 import {useState} from "react";
+import {Provider} from "react-redux";
 
 
 const GamePage = () => {
     const match = useRouteMatch();
     const [selectedPokemons, setSelectedPokemons] = useState({});
-    const [playerPokemons2, setPlayer2Pokemons] = useState([]);
-    const [winner,setWinner] = useState(0);
-
-    const handleSelectedPokemons = (key, pokemon) => {
-        setSelectedPokemons((prevState) => {
-                if (prevState[key]) {
-                    const copyState = {...prevState};
-                    delete copyState[key];
-
-                    return copyState;
-                }
-                return {
-                    ...prevState,
-                    [key]: pokemon,
-                }
-            }
-        )
-    };
 
     const cleanPokemons = () => {
         setSelectedPokemons({});
-        setPlayer2Pokemons([]);
     }
 
     return (
         <PokemonContext.Provider value={{
-            pokemons: selectedPokemons,
-            pokemons2: playerPokemons2,
-            updPlayers2Pokemons: setPlayer2Pokemons,
-            onSelectedPokemons: handleSelectedPokemons,
-            clean : cleanPokemons,
-            winner: winner,
-            setWinner: setWinner
+            clean : cleanPokemons
         }}>
             <Switch>
                 <Route path={`${match.path}/`} exact component={StartPage}/>

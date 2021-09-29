@@ -6,6 +6,7 @@ import bg1 from "../../assets/bg1.jpg";
 import bg2 from "../../assets/bg2.jpg";
 
 
+
 const HomePage = ({}) => {
     return (
         <>
