@@ -1,11 +1,13 @@
 import s from './style.module.css';
 import {useHistory} from "react-router-dom";
 
+
 const Header = ({title}) => {
     const history = useHistory();
     const handleClick = () => {
         history.push('/game');
     }
+
     return (
         <header className={s.root}>
             <div className={s.forest}></div>
