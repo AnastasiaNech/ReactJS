@@ -1,5 +1,6 @@
 import {useLocation, Route, Switch, Redirect, useRouteMatch} from "react-router-dom"
 import s from './style.module.css';
+import 'react-notifications/lib/notifications.css';
 import cn from 'classnames';
 import HomePage from "./routes/HomePage";
 import GamePage from "./routes/GamePage";
@@ -10,6 +11,8 @@ import NotFound from "./routes/NotFound";
 import ContactPage from "./routes/ContactPage/";
 import FirebaseClass from "./service/firebase"
 import {FireBaseContext} from "./context/firebaseContext";
+import {NotificationContainer} from 'react-notifications';
+import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
     const location = useLocation();
@@ -17,6 +20,7 @@ const App = () => {
 
     return (
         <FireBaseContext.Provider value={FirebaseClass}>
+
             <Switch>
                 <Route path="/404" component={NotFound}/>
                 <Route>
@@ -27,10 +31,10 @@ const App = () => {
                         })}>
                             <Switch>
                                 <Route path="/" exact component={HomePage}/>
-                                <Route path="/game" component={GamePage}/>
-                                <Route path="/about" component={AboutPage}/>
-                                <Route path="/contact" component={ContactPage}/>
-                                <Route render={() => (
+                                <PrivateRoute path="/game" component={GamePage}/>
+                                <PrivateRoute path="/about" component={AboutPage}/>
+                                <PrivateRoute path="/contact" component={ContactPage}/>
+                                <PrivateRoute render={() => (
                                     <Redirect to="/404"/>
                                 )}/>
                             </Switch>
@@ -39,6 +43,7 @@ const App = () => {
                     </>
                 </Route>
             </Switch>
+            <NotificationContainer/>
         </FireBaseContext.Provider>
     )
 };
