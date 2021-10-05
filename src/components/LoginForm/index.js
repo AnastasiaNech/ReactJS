@@ -1,28 +1,30 @@
 import cn from 'classnames';
 import s from './style.module.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Input from "./Input/input";
 
-const LoginForm = ({onSubmit}) => {
+const LoginForm = ({onSubmit, isResetField = false}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isAuth, setIsAuth] = useState(false);
+    const [isLogin, setLogin] = useState(true);
+
+
+    useEffect(() => {
+        setEmail('');
+        setPassword('');
+    }, [isResetField]);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit && onSubmit({
+            type: isLogin ? 'login' : 'signup',
             email,
-            password,
-            isAuth
+            password
         });
         setEmail('');
         setPassword('');
     }
-
-    const handleClickLogin = () => {
-        setIsAuth(prevState => !prevState);
-    }
-
 
     return (
         <form onSubmit={handleSubmit}>
@@ -43,15 +45,15 @@ const LoginForm = ({onSubmit}) => {
             <div className = {s.flex}>
                 <button>
                     {
-                        isAuth ? "Sing In" : "Sing Up"
+                        isLogin ?  "Login" : "Sing In"
                     }
                 </button>
                 <span
                     className = {s.question}
-                    onClick={handleClickLogin}
+                    onClick={() => setLogin(!isLogin)}
                     >
                     {
-                        isAuth ? "Register" : "Login"
+                        isLogin ? "Register" : "Login"
                     }
                 </span>
             </div>

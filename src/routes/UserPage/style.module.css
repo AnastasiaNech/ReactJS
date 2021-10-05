@@ -1,0 +1,40 @@
+button,
+button:visited {
+    background: #f300b4;
+    border: 1px solid transparent;
+    color: #fafafa;
+    font-weight: bold;
+    outline: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:active {
+    background: transparent;
+    border: 1px solid #f300b4;
+    color: #f300b4;
+    transition: all ease-in-out 0s;
+    outline: none;
+    padding: 1.05rem 1rem calc(.95rem - 1px) calc(1rem - 1px);
+    border-top: 2px solid;
+    border-right: 2px solid;
+}
+
+.userInfo {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin: 100px auto 10px auto;
+}
+
+.info {
+    font-size: 20px;
+    text-align: center;
+    margin: 10px auto 20px auto;
+    width: 300px;
+    height: 100px;
+    padding: 5px;
+    border: 3px solid #f300b4;
+}
+
