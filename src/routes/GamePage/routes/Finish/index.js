@@ -5,9 +5,7 @@ import {PokemonContext} from "../../../../context/pokemonContext";
 import {useHistory} from "react-router-dom";
 import {FireBaseContext} from "../../../../context/firebaseContext";
 import {selectMyPokemonsData,isWinner} from "../../../../store/myBattlePokemon";
-import {
-    selectPlayerPokemons2Data, updatePlayer2Pokemons
-} from "../../../../store/playerPokemons2";
+import {selectPlayerPokemons2Data, updatePlayer2Pokemons} from "../../../../store/playerPokemons2";
 import {useDispatch,useSelector} from "react-redux";
 
 
@@ -20,13 +18,25 @@ const FinishPage = () => {
     const [selectedPokemon, setSelectedPokemon] = useState({});
     const [selectedPokemon2, setSelectedPokemon2] = useState({});
     const history = useHistory();
-    const Dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    const handleFinishClick = () => {
-        if (winner === 1 ) {
-            const newKey = firebase.database.ref().child('pokemons').push().key;
-            firebase.database.ref('pokemons/' + newKey).set(selectedPokemon);
-        }
+    const handleFinishClick = async () => {
+        if (winner === 1) {
+            // const newKey = firebase.database.ref().child('pokemons').push().key;
+            // firebase.database.ref('pokemons/' + newKey).set(selectedPokemon);
+            const idToken = localStorage.getItem('idToken');
+            const localId = localStorage.getItem('localId');
+            console.log("idToken",idToken)
+            console.log("localId",localId)
+            if(selectedPokemon && idToken) {
+                await fetch(`https://pokemon-game10-default-rtdb.firebaseio.com/${localId}/pokemons.json?auth=${idToken}`,
+                    {
+                        method: 'POST',
+                        body: JSON.stringify(selectedPokemon)
+                    })
+            };
+        };
+
         clean();
         history.replace('/game');
     }
@@ -53,8 +63,7 @@ const FinishPage = () => {
             }, []);
         }
         const result=newList();
-        console.log("playerPokemonsRedux",result)
-        Dispatch(updatePlayer2Pokemons(result));
+        dispatch(updatePlayer2Pokemons(result));
     }
 
     if(Object.keys(playerPokemonsRedux).length === 0)

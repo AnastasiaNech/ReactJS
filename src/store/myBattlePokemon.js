@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {useSelector} from "react-redux";
-import {selectPokemonsData} from "./pokemon";
+
 
 export const slice = createSlice({
     name:'myBattlePokemons',
